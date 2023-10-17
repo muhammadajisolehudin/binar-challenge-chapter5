@@ -1,6 +1,6 @@
 import React from 'react'
 import { API_ENDPOINTS } from '../../utils/api-endpoints';
-import { http3 } from '../../utils/http';
+import { http3 } from '../../utils/http3';
 import { useMutation } from '@tanstack/react-query';
 
 const RegisterUser = async (input) => {
