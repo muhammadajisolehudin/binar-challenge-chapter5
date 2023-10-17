@@ -25,8 +25,8 @@ export const RouteList = () => {
         <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/movie/:id" element={<DetailPage />} />
+            {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
+            {/* <Route path="/movie/:id" element={<DetailPage />} /> */}
         </Routes>
         </ThemeProvider>
       </QueryClientProvider>
