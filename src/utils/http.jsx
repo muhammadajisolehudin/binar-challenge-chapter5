@@ -1,13 +1,27 @@
 import axios from "axios";
+import { CookieKeys, CookieStorage } from "./cookies";
 
+// const Token = CookieStorage.get(CookieKeys.AuthToken)
 //pondasi axios
-const http = axios.create({
+const http3 = axios.create({
     baseURL : process.env.REACT_APP_SERVER,
     timeout : 30000,
     headers : {
-         accept: 'application/json',
-    Authorization: `Bearer ${process.env.REACT_APP_KEY}`
+        accept: 'application/json',
+        "Content-Type" : "application/json"
     } 
 })
 
-export {http}
+http3.interceptors.request.use(
+    (config)=>{
+        config.headers={
+            ...config.headers,
+            Authorization: `Bearer ${CookieStorage.get(CookieKeys.AuthToken) ? CookieStorage.get(CookieKeys.AuthToken) : ""}`
+            // Authorization: `Bearer ${ Token ? Token : ""}`
+        }
+
+        return config
+    },
+)
+
+export {http3}
