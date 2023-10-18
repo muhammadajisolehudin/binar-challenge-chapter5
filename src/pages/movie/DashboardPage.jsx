@@ -1,9 +1,12 @@
 import { Carousel } from '@material-tailwind/react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
-import { ListData } from "../asset/components/RanderList/ListData";
-import { CorouselItem } from "../asset/components/corousel/CorouselItem";
+import { ListData } from "../../asset/components/RanderList/ListData";
+import { CorouselItem } from "../../asset/components/corousel/CorouselItem";
+import { useGetDataUser } from '../../services/auth/get_user';
+import { useNavigate } from 'react-router-dom';
+import { CookieKeys, CookieStorage } from '../../utils/cookies';
 
 
 export const DashboardPage = () => {
@@ -13,16 +16,19 @@ export const DashboardPage = () => {
 const [movies, setMovies] = useState([]);
 const [PageNow, setPageNow] = useState(1);
 const [query, setQuery] = useState('');
-//  const bg_image = {
-//    background-image: url('background.jpg');
-//   };
 
+ const { data: Paijo, isError, status } = useGetDataUser({});
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        CookieStorage.remove(CookieKeys.AuthToken, {
+      
+        });
+        navigate('/')
+    }
 
-//untuk serch movie
- 
-
-//untuk melakukan tindakan saat pertama dijalankan atau di mounting
-
+    useEffect(()=>{
+        console.log(Paijo,"tes user")
+    }, [Paijo])
 
 
   return (
@@ -44,8 +50,7 @@ const [query, setQuery] = useState('');
                 </button>
               </div>
               <div className='gap-3'>
-                <button class="text-red-500 w-[6rem] h-[2.5rem] mr-4 w-5 rounded-full border-2 border-red-500 font-semibold bg-transparent">Login</button>
-                <button class="text-white w-[6rem] h-[2.5rem] rounded-full font-semibold bg-red-500">Register</button>
+                <button onClick={handleLogout} class="text-white w-[6rem] h-[2.5rem] rounded-full font-semibold bg-red-500">Logout</button>
               </div>
             </div>
           </div>
@@ -68,9 +73,9 @@ const [query, setQuery] = useState('');
           >
            
             {console.log(movies, "data movie")}
-              {movies.map(movie => (
+              {/* {movies.map(movie => (
               <CorouselItem id={movie.id} overview={movie.overview} backdrop_path={movie.backdrop_path} runtime={movie.runtime} title={movie.title} releaseDate={movie.release_date}posterPath={movie.poster_path} />
-            ))}
+            ))} */}
           </Carousel>
 
         </div>
@@ -89,9 +94,9 @@ const [query, setQuery] = useState('');
           <div className="mx-auto mt-10 px-4">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
               {console.log(movies, "data movie")}
-              {movies.map(movie => (
+              {/* {movies.map(movie => (
                 <ListData id={movie.id} title={movie.title} releaseDate={movie.release_date}posterPath={movie.poster_path} />
-              ))}
+              ))} */}
                 
             </div>
                 {/* <h1 className='text-3xl'>{movies.title}</h1> */}

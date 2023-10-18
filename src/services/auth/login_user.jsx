@@ -8,7 +8,9 @@ const loginUser = async (input) => {
   try {
     const result = await http.post(API_ENDPOINTS.LOGIN_USER, input);
     CookieStorage.set(CookieKeys.AuthToken, result.data.data.token);
+    window.location.href = "/dashboard"
     return result;
+    
   } catch (err) {
     throw err;
   }

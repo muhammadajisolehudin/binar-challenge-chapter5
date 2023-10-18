@@ -1,13 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
+import { fetchDataMovieDetail, useMovieDataDetailQuery } from '../../services/movie/get-data-movie-detail';
 
 export const DetailPage = () => {
 
+const [movies, setMovies] = useState([]);
+const { id } = useParams();
 
-// //untuk melakukan tindakan saat pertama dijalankan atau di mounting
+const{data:fetchUser} = useMovieDataDetailQuery(id)
+
+const getDataMovieById = async () => {
+    const data = await fetchDataMovieDetail(id)
+    setMovies(data) 
+    console.log(movies, "data movie");
+} 
+
+//untuk melakukan tindakan saat pertama dijalankan atau di mounting
 useEffect(()=>{
- 
-  
+    getDataMovieById()
+    //console.log(movies, "ini datanya")
+    console.log(fetchUser, "masa gak ada")
 }, [])
 
 

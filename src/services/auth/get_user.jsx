@@ -11,15 +11,19 @@ const fetchUserData = async ({ queryKey }) => {
         email: value.data.data.email
       }
 
+        console.log(value, "ini value")
+        return {data:Datahasil}
     }).catch((err) => {
+      
       if (err.response.status === 401) {
         window.location.href = "/"
       }
+      console.log(err, "ini errornya")
     })
   return data
 }
 const useGetDataUser = (options) => {
-  return useQuery([API_ENDPOINTS.GET_USER, options], fetchUserData);
+  return useQuery([API_ENDPOINTS.GET_ME, options], fetchUserData);
 };
 export { fetchUserData, useGetDataUser };
 
