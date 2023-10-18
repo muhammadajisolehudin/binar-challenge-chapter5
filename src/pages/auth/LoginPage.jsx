@@ -19,6 +19,9 @@ export const LoginPage = () => {
             }
         }
     };
+    if(isSucces){
+        navigate("/dashboard")
+    }
     const Login = () => {
         LoginUser({
             email: email,
