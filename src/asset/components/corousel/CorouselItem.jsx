@@ -8,7 +8,7 @@ export const CorouselItem = (props) => {
             <div className='flex text-white self-center gap-4 mt-[18rem] ms-10 flex-col'>
                 <h1 className='text-6xl font-bold'>{props.title}</h1>
                 <p>Synopsis &nbsp; &nbsp;: {props.overview} </p>
-                <p>Run Time &nbsp; &nbsp;: {props.runtime} min</p>
+                <p>Duration &nbsp; &nbsp;: {props.runtime} min</p>
                             
                 <p className=''>Release Date : {props.releaseDate}</p>
                 <button className="text-white w-[8rem] h-[2.5rem] rounded-full font-semibold bg-red-500">Watch NOW</button>
