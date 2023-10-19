@@ -1,18 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
-import {http} from "../../utils/http";
-import { API_ENDPOINTS } from "../../utils/api-endpoints";
+import { http3 } from '../../utils/http3'
+import { API_ENDPOINTS } from '../../utils/api-endpoints'
+import { useQuery } from '@tanstack/react-query'
 
-//cara pertama untuk hit API
-const fetchDataMoviePopular = async (page) => {
-    console.log(page, "ini page")
-    const { data } = await http.get(`${API_ENDPOINTS.POPULAR}?page=${page}`)
-    return data
-    
+const fetchDataMoviePopular = async(id) => {
+    console.log(id, "ini id movie popular")
+    const {data} = await http3.get(`${API_ENDPOINTS.POPULAR_MOVIE}${id}`)
+    return data;
+}
+const useMovieDataPopularQuery = (id) =>{
+    return useQuery(["useDataPopularMovie", id], () => fetchDataMoviePopular(id));
 }
 
-
-const useMovieDataPopularQuery = (page) =>{
-    return useQuery(["userDataMoviePopular", page], ()=> fetchDataMoviePopular(page));
-}
 
 export {fetchDataMoviePopular, useMovieDataPopularQuery}
