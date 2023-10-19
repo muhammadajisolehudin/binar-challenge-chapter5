@@ -8,6 +8,7 @@ export const DetailPage = () => {
 
 const [movies, setMovies] = useState([]);
 const { id } = useParams();
+let [DataSearch, setDataSearch] = useState("") 
 
 const{data:fetchUser} = useMovieDataDetailQuery(id)
 const { data: Paijo, isError, status } = useGetDataUser({});
@@ -36,7 +37,7 @@ useEffect(()=>{
                             <h1 className='text-red-500 font-bold text-4xl'>MovieList</h1>
                         </div>
                         <div>
-                            <input type="text" className="bg-transparent border-2 border-red-500 placeholder-white w-[30rem] h-[2.5rem] py-2 px-3 rounded-full focus:outline-none" placeholder="Search for movies..."/>
+                            <input type="text" className="bg-transparent border-2 border-red-500 placeholder-white w-[30rem] h-[2.5rem] py-2 px-3 rounded-full focus:outline-none" placeholder="Search for movies..." onChange={(e)=>{setDataSearch(e.target.value)}} />
                         </div>
                         <div className='gap-3'>
                             <button class="text-white w-[6rem] h-[2.5rem] rounded-full font-semibold bg-red-500">Logout</button>

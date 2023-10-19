@@ -11,7 +11,7 @@ const fetchUserData = async ({ queryKey }) => {
         email: value.data.data.email
       }
 
-        console.log(value, "ini value")
+        // console.log(value, "ini value")
         return {data:Datahasil}
     }).catch((err) => {
       

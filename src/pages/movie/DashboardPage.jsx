@@ -7,28 +7,40 @@ import { CorouselItem } from "../../asset/components/corousel/CorouselItem";
 import { useGetDataUser } from '../../services/auth/get_user';
 import { useNavigate } from 'react-router-dom';
 import { CookieKeys, CookieStorage } from '../../utils/cookies';
+import { fetchDataMoviePopular, useMovieDataPopularQuery } from '../../services/movie/get-data-movie-populer';
 
 
 export const DashboardPage = () => {
   
-    
-    
 const [movies, setMovies] = useState([]);
 const [PageNow, setPageNow] = useState(1);
 const [query, setQuery] = useState('');
+const navigate = useNavigate();
 
- const { data: Paijo, isError, status } = useGetDataUser({});
-    const navigate = useNavigate();
-    const handleLogout = () => {
-        CookieStorage.remove(CookieKeys.AuthToken, {
-      
-        });
-        navigate('/')
-    }
 
-    useEffect(()=>{
-        console.log(Paijo,"tes user")
-    }, [Paijo])
+// const { data: movieData } = useMovieDataPopularQuery({
+//   page : PageNow
+// });
+const { data: Paijo, isError, status } = useGetDataUser({});
+const { data: popularMovie } = useMovieDataPopularQuery(PageNow);
+    
+
+const handleLogout = () => {
+  CookieStorage.remove(CookieKeys.AuthToken, {});
+  navigate('/')
+}
+
+const getDataMovie = async () => {
+  const data = await fetchDataMoviePopular(PageNow)
+  setMovies(data.data) 
+} 
+
+
+
+useEffect(()=>{
+  getDataMovie()
+  console.log(popularMovie, "ini datanya")
+}, [Paijo, popularMovie])
 
 
   return (
@@ -40,9 +52,9 @@ const [query, setQuery] = useState('');
               <div>
                 <h1 className='text-red-500 font-bold text-4xl'>MovieList</h1>
               </div>
-              <div class="relative">
+              <div className="relative">
                 <input type="text" className="bg-transparent border-2 text-white border-red-500 w-[30rem] h-[2.5rem] py-2 px-3 rounded-full focus:outline-none" placeholder="Search for movies..." value={query} onChange={(e) => setQuery(e.target.value)}/>
-                <button onClick class="absolute right-0 top-0 text-white rounded-r px-3 py-2">
+                <button onClick className="absolute right-0 top-0 text-white rounded-r px-3 py-2">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                   </svg>
@@ -50,7 +62,7 @@ const [query, setQuery] = useState('');
                 </button>
               </div>
               <div className='gap-3'>
-                <button onClick={handleLogout} class="text-white w-[6rem] h-[2.5rem] rounded-full font-semibold bg-red-500">Logout</button>
+                <button onClick={handleLogout} className="text-white w-[6rem] h-[2.5rem] rounded-full font-semibold bg-red-500">Logout</button>
               </div>
             </div>
           </div>
@@ -71,13 +83,11 @@ const [query, setQuery] = useState('');
               </div>
             )}
           >
-           
-            {console.log(movies, "data movie")}
-              {/* {movies.map(movie => (
-              <CorouselItem id={movie.id} overview={movie.overview} backdrop_path={movie.backdrop_path} runtime={movie.runtime} title={movie.title} releaseDate={movie.release_date}posterPath={movie.poster_path} />
-            ))} */}
+           {console.log(movies, "ini movie")}
+            {movies.map(movie => (
+              <CorouselItem key={movie.id}id={movie.id} overview={movie.overview} backdrop_path={movie.backdrop_path} runtime={movie.runtime} title={movie.title} releaseDate={movie.release_date}posterPath={movie.poster_path} />
+            ))}
           </Carousel>
-
         </div>
 
         <div className='p-4'>
@@ -93,14 +103,11 @@ const [query, setQuery] = useState('');
 
           <div className="mx-auto mt-10 px-4">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
-              {console.log(movies, "data movie")}
-              {/* {movies.map(movie => (
-                <ListData id={movie.id} title={movie.title} releaseDate={movie.release_date}posterPath={movie.poster_path} />
-              ))} */}
-                
+              {movies.map(movie => (
+                <ListData id={movie.id} key={movie.id}title={movie.title} releaseDate={movie.release_date}posterPath={movie.poster_path} />
+              ))}
             </div>
-                {/* <h1 className='text-3xl'>{movies.title}</h1> */}
-            
+                
               <div className='flex justify-between mt-8'>
               
               <button className='text-white w-[8rem] h-[2.5rem] rounded-full font-semibold bg-red-500' onClick={()=>{
