@@ -83,7 +83,7 @@ export const LoginPage = () => {
                             />
                         </div>
                         <div className='pt-3 justify-center flex'>
-                            <span className='text-sm font-bold'>Don't have an account? <a className='text-red-500' href='/register'>Sign Up</a></span>
+                            <span className='text-sm font-bold'>Don't have an account? <a className='text-red-500' href='/'>Sign Up</a></span>
                         </div>
                     </div>
                     <div className='relative'>
