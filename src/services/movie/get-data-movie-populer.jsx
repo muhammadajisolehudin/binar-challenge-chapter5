@@ -11,6 +11,9 @@ const fetchDataMoviePopular = async (page) => {
 const useMovieDataPopularQuery = (page) =>{
     return useQuery(["userDataMoviePopular", page], ()=> fetchDataMoviePopular(page));
 }
+
+
+
 // const fetchDataMoviePopular = async ({queryKey}) => {
 //     const [_key, _params] = queryKey;
 //     const { data } = await http3.get(_key, {params: _params});

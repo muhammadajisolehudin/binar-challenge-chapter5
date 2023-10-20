@@ -1,5 +1,5 @@
 export const API_ENDPOINTS = {
-    SEARCH_MOVIE: "/api/v1/search/movie?page=page&query=query",
+    SEARCH_MOVIE: "/api/v1/search/movie",
     POPULAR_MOVIE : "/api/v1/movie/popular",
     DETAIL_MOVIE : "/api/v1/movie/",
     REGISTER_USER : "/api/v1/auth/register",

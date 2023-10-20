@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useGetDataUser } from '../../services/auth/get_user';
 import { useNavigate } from 'react-router-dom';
 import { CookieKeys, CookieStorage } from '../../utils/cookies';
-import { fetchDataMoviePopular, useMovieDataPopularQuery } from '../../services/movie/get-data-movie-populer';
+import { fetchDataMoviePopular, useMovieDataPopularQuery} from '../../services/movie/get-data-movie-populer';
 import { Carousel } from '@material-tailwind/react';
 import { CorouselItem } from '../../asset/components/corousel/CorouselItem';
 import { ListData } from '../../asset/components/RanderList/ListData';
+// import { searchMovie } from '../../services/movie/search-data-movie';
 
 export const DashboardPage = () => {
   
@@ -31,6 +32,13 @@ const getDataMovie = async () => {
   setMovies(data.data) 
 } 
 
+// const search  = async (q) => {
+//     if (q.length > 0) {
+//         const query = await searchMovie(q, PageNow)
+//         setMovies(query.results)
+//     }
+//   }
+
 
 
 useEffect(()=>{
@@ -49,8 +57,8 @@ useEffect(()=>{
                 <h1 className='text-red-500 font-bold text-4xl'>MovieList</h1>
               </div>
               <div className="relative">
-                <input type="text" className="bg-transparent border-2 text-white border-red-500 w-[30rem] h-[2.5rem] py-2 px-3 rounded-full focus:outline-none" placeholder="Search for movies..." value={query} onChange={(e) => setQuery(e.target.value)}/>
-                <button onClick className="absolute right-0 top-0 text-white rounded-r px-3 py-2">
+                <input type="text" className="bg-transparent border-2 text-white border-red-500 w-[30rem] h-[2.5rem] py-2 px-3 rounded-full focus:outline-none" placeholder="Search for movies..."  value={query} />
+                <button className="absolute right-0 top-0 text-white rounded-r px-3 py-2"  type="submit">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                   </svg>
