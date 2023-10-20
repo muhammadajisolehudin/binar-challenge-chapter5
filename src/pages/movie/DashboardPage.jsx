@@ -21,7 +21,6 @@ const navigate = useNavigate();
 const { data: Paijo, isError, status } = useGetDataUser({});
 const { data: popularMovie } = useMovieDataPopularQuery(PageNow);
     
-
 const handleLogout = () => {
   CookieStorage.remove(CookieKeys.AuthToken, {});
   navigate('/')
@@ -41,7 +40,7 @@ useEffect(()=>{
 
 
   return (
-    <div>
+    <div className="bg-[#1e1e2a]">
       <div className='font-sans'>
         <div className=" min-h-screen bg-transparent h-screen">
           <div className='relative z-40 p-4'>
@@ -65,7 +64,7 @@ useEffect(()=>{
           </div>
           
           <Carousel
-            className="rounded-xl mt-[-4.2rem]"
+            className="mt-[-4.5rem]"
             navigation={({ setActiveIndex, activeIndex, length }) => (
               <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
                 {new Array(length).fill("").map((_, i) => (
@@ -131,7 +130,7 @@ useEffect(()=>{
               <button className='text-white w-[8rem] h-[2.5rem] rounded-full font-semibold bg-red-500' onClick={()=>{
                 setPageNow(PageNow - 1)
               }}>Back Page</button>
-              <h1 className="font-bold text-2xl">{PageNow}</h1>
+              <h1 className="font-bold text-2xl text-white">{PageNow}</h1>
               <button className="text-white w-[8rem] h-[2.5rem] rounded-full font-semibold bg-red-500" onClick={() => {
                 setPageNow(PageNow + 1);
               }}>Next</button>
