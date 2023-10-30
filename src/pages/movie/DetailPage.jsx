@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
-import StarRatings from 'react-star-ratings';
+import { Link, useParams } from 'react-router-dom';
+import { CookieKeys, CookieStorage } from '../../utils/cookies';
+import { useNavigate } from 'react-router-dom';
 import { fetchDataMovieDetail, useMovieDataDetailQuery } from '../../services/movie/get-data-movie-detail';
 import { useGetDataUser } from '../../services/auth/get_user';
 
 export const DetailPage = () => {
+    const navigate = useNavigate()
+    const [movies, setMovies] = useState([]);
+    const { id } = useParams();
+    let [DataSearch, setDataSearch] = useState("") 
 
-const [movies, setMovies] = useState([]);
-const { id } = useParams();
-let [DataSearch, setDataSearch] = useState("") 
+    const{data:fetchUser} = useMovieDataDetailQuery(id)
+    const { data: Paijo, isError, status } = useGetDataUser({});
 
-const{data:fetchUser} = useMovieDataDetailQuery(id)
-const { data: Paijo, isError, status } = useGetDataUser({});
+    const getDataMovieById = async () => {
+        const data = await fetchDataMovieDetail(id)
+        setMovies(data.data) 
+        console.log(movies, "data movie");
+    } 
 
-const getDataMovieById = async () => {
-    const data = await fetchDataMovieDetail(id)
-    setMovies(data.data) 
-    console.log(movies, "data movie");
-} 
+    
+    const handleLogout = () => {
+    CookieStorage.remove(CookieKeys.AuthToken, {});
+    navigate('/')
+    }
 
-   
-const handleLogout = () => {
-  CookieStorage.remove(CookieKeys.AuthToken, {});
-  navigate('/')
-}
-
-//untuk melakukan tindakan saat pertama dijalankan atau di mounting
-useEffect(()=>{
-    getDataMovieById()
-    //console.log(movies, "ini datanya")
-    console.log(fetchUser, "masa gak ada")
-}, [Paijo])
+    //untuk melakukan tindakan saat pertama dijalankan atau di mounting
+    useEffect(()=>{
+        getDataMovieById()
+        //console.log(movies, "ini datanya")
+        console.log(fetchUser, "masa gak ada")
+    }, [Paijo])
 
 
   return (
@@ -40,7 +41,9 @@ useEffect(()=>{
                 <div className='relative z-40 p-4'>
                     <div className='flex justify-between bg-slate-950'>
                         <div>
-                            <h1 className='text-red-500 font-bold text-4xl'>MovieList</h1>
+                            <Link className="text-xl font-semibold mb-2" to={`/dashboard`}>
+                                <h1 className='text-red-500 font-bold text-4xl'>MovieList</h1>
+                            </Link> 
                         </div>
                         <div>
                             <input type="text" className="bg-transparent border-2 border-red-500 placeholder-white w-[30rem] h-[2.5rem] py-2 px-3 rounded-full focus:outline-none" placeholder="Search for movies..." onChange={(e)=>{setDataSearch(e.target.value)}} />

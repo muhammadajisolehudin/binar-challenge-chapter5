@@ -1,22 +1,7 @@
-// import axios from "axios";
-// import { API_ENDPOINTS } from "../../utils/api-endpoints";
 
-
-// const searchMovies = async ({queryKey}) => {
-//   try {
-//     const [_key, _params] = queryKey;
-//     const response = await axios.get(_key, {params: _params});
-//     const results = response.data.results;
-//     return results
-//     // Lakukan sesuatu dengan hasil pencarian, seperti menampilkan daftar film.
-//   } catch (error) {
-//     // Tangani kesalahan jika permintaan gagal.
-//   }
-// };
-
-import axios from "axios";
 import { http3 } from "../../utils/http3";
 import { API_ENDPOINTS } from "../../utils/api-endpoints";
+import { useQuery } from "@tanstack/react-query";
 
 // const apiKey = process.env.REACT_APP_KEY
 // const mainUrl = process.env.REACT_APP_SERVER.SEARCH_MOVIE
@@ -27,9 +12,20 @@ import { API_ENDPOINTS } from "../../utils/api-endpoints";
 // }
 
 
-export const searchMovie = async (q, PageNow) => {
-  const search = await http3.get(`${API_ENDPOINTS.SEARCH_MOVIE}?page=${PageNow}&query=${q}`);
-  return search.data
+// export const searchMovie = async (q, PageNow) => {
+//   const search = await http3.get(`${API_ENDPOINTS.SEARCH_MOVIE}?page=${PageNow}&query=${q}`);
+//   return search.data
+// };
+
+
+const searchMovie = async ({ queryKey }) => {
+  const [_key, _params] = queryKey;
+  const { data } = await http3.get(_key, { params: _params });
+  return data;
 };
 
+const useSearchMovieQuery = (options) => {
+  return useQuery([API_ENDPOINTS.SEARCH_MOVIE, options], searchMovie);
+};
 
+export { searchMovie, useSearchMovieQuery };

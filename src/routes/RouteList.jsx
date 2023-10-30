@@ -7,6 +7,7 @@ import { LoginPage } from "../pages/auth/LoginPage";
 import { RegisterPage } from "../pages/auth/RegisterPage";
 import { DashboardPage } from "../pages/movie/DashboardPage";
 import { DetailPage } from "../pages/movie/DetailPage";
+import { SearchPage } from "../pages/movie/SearchPage";
 
 export const RouteList = () => {
   //untuk menggunakan react query di index
@@ -20,6 +21,7 @@ export const RouteList = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/detail/:id" element={<DetailPage />} />
+          <Route path="/search/:query" element={<SearchPage />} />
         </Routes>
       </QueryClientProvider>
     </BrowserRouter>
